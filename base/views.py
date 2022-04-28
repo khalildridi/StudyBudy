@@ -1,10 +1,11 @@
 from multiprocessing import context
+from pyexpat.errors import messages
 from django.http import HttpResponse
 from django.shortcuts import render
 
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
-from .models import Room 
+from .models import Room, Message
 from .forms import RoomForm 
 # Create your views here.
 
@@ -17,7 +18,16 @@ def home(request):
 
 def room(request,pk):
     room = Room.objects.get(id=pk)
-    context= { 'room':room }
+    room_messages = room.message_set.all()
+    context= { 'room':room, 'room_messages':room_messages }
+    if request.method == 'POST':
+            message = Message.objects.create(
+                user=request.user,
+                room=room,
+                body=request.POST.get('body')
+            )
+            room.participants.add(request.user)
+            return redirect('room', pk=room.id)
 
     return render(request,'base/room.html',context)
 
