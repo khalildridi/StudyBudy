@@ -163,3 +163,15 @@ def deleteMessage(request, pk):
         message.delete()
         return redirect('home')
     return render(request, 'base/delete.html', {'obj': message})
+
+
+def update_user(request):
+    form= UserForm(instance=request.user)
+    context= {'form':form}
+    if request.method == 'POST':
+        form=UserForm(request.POST,instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile', pk=request.user.id)
+
+    return render(request, "base/update_user.html",context)
