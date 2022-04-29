@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from .models import Room, Topic, Message, User
-from .forms import RoomForm, UserForm, MyUserCreationForm
+from .forms import RoomForm, UserForm
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 def logoutUser(request):
     logout(request)
@@ -37,10 +38,10 @@ def loginPage(request):
     return render(request, 'base/login_register.html', context)
 
 def registerPage(request):
-    form = MyUserCreationForm()
+    form = UserCreationForm()
 
     if request.method == 'POST':
-        form = MyUserCreationForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
