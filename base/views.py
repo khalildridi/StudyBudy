@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from .models import Room, Topic, Message, User
-from .forms import RoomForm, UserForm, MyUserCreationForm
-# Create your views here.
+from .forms import RoomForm, UserForm
+from django.contrib.auth.forms import UserCreationForm
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
