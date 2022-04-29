@@ -4,15 +4,17 @@ from . import views
 
 urlpatterns = [
 
-    path('', views.home, name="home"),
-    path('room/<str:pk>/', views.room, name="room"),
-    path('create-room/',views.createRoom,name="create-room"),
-    path('register/', views.registerPage, name="register"),
-    path('update-room/<str:pk>',views.updateRoom,name="update-room"),
-    path('delete-room/<str:pk>',views.deleteRoom,name="delete-room"),
-    path('delete-message/<str:pk>/', views.deleteMessage, name="delete-message"),
-     path('profile/<str:pk>/', views.userProfile, name="user-profile"),
-
+    path('', views.home, name='home'),
+    path('room/<int:pk>/', views.room, name='room'),
+    path('room-form/', views.createRoom, name='room-form'),
+    path('update-room/<int:pk>/', views.updateRoom, name='update-room'),
+    path('deleteRoom/<int:pk>/', views.deleteRoom, name='deleteRoom'),
+    path('user_login/', views.loginPage, name="user_login"),
+    path('register_user/', views.registerPage, name="register_user"),
+    path('user_logout/', views.logoutUser, name="user_logout"),
+    path('delete_comment/<int:pk>', views.deleteMessage, name="delete_comment"),
+    path('user_profile/<int:pk>', views.userProfile, name="user_profile"),
+    path('update_user/', views.update_user, name="update_user"),
 
 
 ]
